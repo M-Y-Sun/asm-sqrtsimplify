@@ -19,14 +19,18 @@
  * * * * * * * * * * * * * */
 
 .global atoi
+.section .text
 
 atoi:
-    push    {lr}            // save return address
+    push    {lr}                // save return address
 
-    mov     r1, #0          // final result
+    mov     fp, sp
+    sub     sp, sp, #0x20       // allocate a word of memory for the function
+
+    mov     r1, #0              // final result
 1:
-    ldrb    r2, [r0], #1    // char
-    cmp     r2, #0xa        // newline ('\n') means end of input
+    ldrb    r2, [r0], #1        // char
+    cmp     r2, #0xa            // newline ('\n') means end of input
     beq     2f
     push    {r0}
     bl      mul10
@@ -35,12 +39,13 @@ atoi:
     sub     r1, #48
     b       1b
 2:
-    pop     {lr}            // get return address of atoi function (overwrite return address to mul10)
-    push    {r1}            // push r1 (return value) onto the stack
+    pop     {lr}                // get return address of atoi function (overwrite return address to mul10)
+    push    {r1}                // push r1 (return value) onto the stack
     
     bx      lr
-mul10:                     // multiplies the number in r1 by 10
+mul10:                          // multiplies the number in r1 by 10
     mov     r0, r1, lsl #3
     lsl     r1, #1
     add     r1, r0
     bx      lr
+

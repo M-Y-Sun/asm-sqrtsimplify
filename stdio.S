@@ -1,8 +1,11 @@
-// UNSAVED REGISTERS:
-// r0: input string address
-// r1: input string pointer/iterator for length
-// r3: length of input string
-// r7: syscall number
+ /* * * * * * * * * * * * * * * * * * * * * * * * 
+  * REGISTERS:
+  * r0: input string address
+  * r1: input string pointer/iterator for length
+  * r2: each character of input string
+  * r3: length of input string
+  * r7: syscall number
+  * * * * * * * * * * * * * * * * * * * * * * * */
 
 .macro      stdout      str
     ldr     r0, =\str
@@ -18,7 +21,7 @@
     sub     r3, r1, r0
 
     mov     r7, #0x4
-    mov     r0, #0
+    mov     r0, #1
     ldr     r1, =\str
     mov     r2, r3
     swi     0
@@ -44,11 +47,13 @@
     swi     0
 .endm
 
-// UNSAVED REGISTERS:
-// r0: input string address
-// r1: input string pointer/iterator for length
-// r3: length of input string
-// r7: syscall number
+ /* * * * * * * * * * * * * * * * * * * * * * * * 
+  * REGISTERS:
+  * r0: stdin file descriptor (#0)
+  * r1: buffer
+  * r2: buffer length
+  * r7: syscall number
+  * * * * * * * * * * * * * * * * * * * * * * * */
 
 .macro      stdin       buf     bufsize
     mov     r7, #0x3
