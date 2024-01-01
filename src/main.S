@@ -11,11 +11,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-.include "stdio.S"
-.include "atoi.S"
-.include "itoa.S"
-.include "sqrt.S"
-.include "div.S"
+.include "include/stdio.S"
+.include "include/atoi.S"
+.include "include/itoa.S"
+.include "include/sqrt.S"
+.include "include/div.S"
 
 .global _start
 .section .text
@@ -124,6 +124,9 @@ progex:
     swi     0
 
 .section .data
+innum:      .fill   9   // 8 digits and newline
+
+.section .rodata
 intromsg:   .asciz  "sqrt of what number\n\t> "
 
 errmsg:     .asciz  "invalid input: nonnegative integer expected\n"
@@ -135,5 +138,3 @@ eq1msg:     .asciz  "\u221a1 = 1\n"
 sqrtsymbol: .asciz  "\u221a"
 
 eqsign:     .asciz  " = "
-
-innum:      .fill   9
