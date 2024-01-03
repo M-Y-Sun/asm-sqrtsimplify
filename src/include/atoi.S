@@ -24,26 +24,23 @@
 atoi:
     push    {lr}                // save return address
 
-    mov     fp, sp
-    sub     sp, sp, #0x20       // allocate a word of memory for the function
-
     mov     r1, #0              // final result
-1:
+atoi_l:
     ldrb    r2, [r0], #1        // char
     cmp     r2, #0xa            // newline ('\n') means end of input
-    beq     2f
+    beq     atoi_lex
     push    {r0}
-    bl      mul10
+    bl      atoi_mul10
     pop     {r0}
     add     r1, r2
     sub     r1, #48
-    b       1b
-2:
+    b       atoi_l
+atoi_lex:
     pop     {lr}                // get return address of atoi function (overwrite return address to mul10)
     push    {r1}                // push r1 (return value) onto the stack
     
     bx      lr
-mul10:                          // multiplies the number in r1 by 10
+atoi_mul10:                          // multiplies the number in r1 by 10
     mov     r0, r1, lsl #3
     lsl     r1, #1
     add     r1, r0

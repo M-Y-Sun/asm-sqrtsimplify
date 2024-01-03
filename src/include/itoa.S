@@ -1,3 +1,5 @@
+.global itoa
+
 .macro      pow     base, exp 
     mov     r0, \base   // load base 
     mov     r1, \exp    // load expo
@@ -16,11 +18,8 @@
     mov     r0, r2      // move result to r0
 .endm
 
-
-.global itoa
-
 itoa: 
-    push    {r4-r9, lr}         // save registers we will use 
+    push    {r4-r9, lr}     // save registers we will use 
     mov     r4, r1          // load outstr address
     mov     r9, r1          // copy to r9 
     mov     r5, r0          // load number to process
@@ -30,34 +29,34 @@ itoa:
     mov     r8, #0          // init loop counter 
 
     // find first power of ten to use
-findstart:
+itoa_findstart:
     pow     #10, r7         // get cur power of ten 
     mov     r6, r0          // move pow result to r6 
     cmp     r6, r5          // compare 10^x to number to print 
-    ble     finddigit       // if less than number, go to printing 
+    ble     itoa_finddigit  // if less than number, go to printing 
     sub     r7, #1          // if still bigger than num to print, 
                             // decrement pow and try again 
-    b       findstart   
+    b       itoa_findstart   
     // process number and print 
-finddigit:
+itoa_finddigit:
     cmp     r5, r6          // compare remaining number to 10^x 
-    blt     write           // if less than, write digit 
+    blt     itoa_write      // if less than, write digit 
     add     r8, r8, #1      // increment counter 
     sub     r5, r5, r6      // subtract 10^x from remaining and go again 
-    b       finddigit 
-write:
+    b       itoa_finddigit 
+itoa_write:
     add     r8, #'0'        // add counter to ASCII zero to get number 
     strb    r8, [r4], #1    // store in outstr and increment 
 
     // prepare next loop 
     sub     r7, #1          // subtract one from the counter
     cmp     r7, #0          // compare expo to 0 
-    blt     exit            // if expo is zero, leave loop 
+    blt     itoa_ex         // if expo is zero, leave loop 
     pow     #10, r7         // get next power of ten 
     mov     r6, r0          // move 10^x into r6 
     mov     r8, #0          // reset loop counter 
-    b       finddigit 
-exit: 
+    b       itoa_finddigit 
+itoa_ex: 
     mov     r8, #'\n'       // load line ending for output str 
     strb    r8, [r4]        // store to output. no need to increment  
     

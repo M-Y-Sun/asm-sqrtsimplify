@@ -26,7 +26,7 @@ _start:
 
     ldr     r0, =innum
     bl      atoi            // result is pushed onto the stack
-    pop     {r4}            // input number is in r4
+    pop     {r4}            // pop input number off the stack
     
     mov     r5, r4
     mov     r6, #1
@@ -44,8 +44,8 @@ lcompute:
     // a % n = a - floor(a / n) * n
     mov     r0, r5
     mov     r1, r8
-    bl      div             
-    pop     {r9}            // does r5 / r8 and store in r9
+    bl      div             // r5 / r8
+    pop     {r9}            // pop result off the stack
     mul     r10, r9, r8
     sub     r10, r5, r10
     cmp     r10, #0
