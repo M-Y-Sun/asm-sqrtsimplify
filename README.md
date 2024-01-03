@@ -4,6 +4,12 @@ An ARM Assembly program that simplifies square roots.
 Input number can be up to 8 digits long.
 
 ### Usage
+Clone the repository then `cd` to the directory:
+```
+$ git clone https://github.com/s7a19t4r/asm-sqrtsimplify
+$ cd asm-sqrtsimplify
+```
+
 ##### Native ARM
 1. Verify system architecture to match syntax and ability to run ARM binaries. 
 Run the following commands to run the Bash script:
