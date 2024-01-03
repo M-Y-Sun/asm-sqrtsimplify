@@ -11,11 +11,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-.include "include/stdio.S"
-.include "include/atoi.S"
-.include "include/itoa.S"
-.include "include/sqrt.S"
-.include "include/div.S"
+.include "src/include/stdio.S"
+.include "src/include/atoi.S"
+.include "src/include/itoa.S"
+.include "src/include/sqrt.S"
+.include "src/include/div.S"
 
 .global _start
 .section .text

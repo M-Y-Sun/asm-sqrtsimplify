@@ -1,12 +1,16 @@
 default: native
 
 native:
-	as src/main.S -o src/obj.o
-	ld src/obj.o -o src/main.elf
-	rm src/obj.o
+	if [ ! -d bin/ ]; then mkdir bin/; fi
+
+	as src/main.S -o obj.o
+	ld obj.o -o bin/main.elf
+	rm obj.o
 
 virtual:
-	arm-linux-gnueabi-as src/main.S -o src/obj.o
-	arm-linux-gnueabi-ld src/obj.o -o src/main.elf
-	rm src/obj.o
+	if [ ! -d bin/ ]; then mkdir bin/; fi
+
+	arm-linux-gnueabi-as src/main.S -o obj.o
+	arm-linux-gnueabi-ld obj.o -o bin/main.elf
+	rm obj.o
 
