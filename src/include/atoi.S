@@ -19,8 +19,8 @@
  * * * * * * * * * * * * * */
 
 .global atoi
-.section .text
 
+.section .text
 atoi:
     push    {lr}                // save return address
 
@@ -36,11 +36,9 @@ atoi_l:
     sub     r1, #48
     b       atoi_l
 atoi_lex:
-    pop     {lr}                // get return address of atoi function (overwrite return address to mul10)
-    push    {r1}                // push r1 (return value) onto the stack
-    
-    bx      lr
-atoi_mul10:                          // multiplies the number in r1 by 10
+    mov     r3, r1              // returns in r4
+    pop     {pc}                // return
+atoi_mul10:                     // multiplies the number in r1 by 10
     mov     r0, r1, lsl #3
     lsl     r1, #1
     add     r1, r0

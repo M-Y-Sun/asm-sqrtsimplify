@@ -25,15 +25,15 @@ _start:
     stdin   innum, #8
 
     ldr     r0, =innum
-    bl      atoi            // result is pushed onto the stack
-    pop     {r4}            // pop input number off the stack
+    bl      atoi            // returns in r3
+    mov     r4, r3
     
     mov     r5, r4
     mov     r6, #1
 
     mov     r0, r4
     bl      sqrt
-    pop     {r7}
+    mov     r3, r7
 lcompute:
     cmp     r7, #1
     blt     lcomputeex
@@ -45,7 +45,7 @@ lcompute:
     mov     r0, r5
     mov     r1, r8
     bl      div             // r5 / r8
-    pop     {r9}            // pop result off the stack
+    mov     r3, r9
     mul     r10, r9, r8
     sub     r10, r5, r10
     cmp     r10, #0

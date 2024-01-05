@@ -19,7 +19,6 @@ div_l:
     b       div_l
     
 div_lex:
-    pop     {lr}
-    push    {r3}
-    bx      lr
+    // ret value is already in r3
+    pop     {pc}
 

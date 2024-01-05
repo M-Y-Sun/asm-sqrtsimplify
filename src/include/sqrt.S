@@ -31,8 +31,6 @@ sqrt_lex:
     sub     r1, #1
     mov     r3, r1
 sqrt_ret:
-    pop     {lr}
-    // push    {r1}
-    push    {r3}
-    bx      lr
+    // ret value is already in r3
+    pop     {pc}
 
