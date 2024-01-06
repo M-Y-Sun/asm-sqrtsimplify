@@ -18,9 +18,9 @@
  * END DO
  * * * * * * * * * * * * * */
 
-.global atoi
+    .global atoi
 
-.section .text
+    .section .text
 atoi:
     push    {lr}                // save return address
 
@@ -36,7 +36,7 @@ atoi_l:
     sub     r1, #48
     b       atoi_l
 atoi_lex:
-    mov     r3, r1              // returns in r4
+    mov     r0, r1              // returns in r4
     pop     {pc}                // return
 atoi_mul10:                     // multiplies the number in r1 by 10
     mov     r0, r1, lsl #3

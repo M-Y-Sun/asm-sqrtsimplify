@@ -6,9 +6,9 @@
  * r3: number to return
  * * * * * * * * * * * * * * */
 
-.global sqrt
-.section .text
+    .global sqrt
 
+    .section .text
 sqrt:
     push    {lr}
     
@@ -31,6 +31,6 @@ sqrt_lex:
     sub     r1, #1
     mov     r3, r1
 sqrt_ret:
-    // ret value is already in r3
+    mov     r0, r3
     pop     {pc}
 

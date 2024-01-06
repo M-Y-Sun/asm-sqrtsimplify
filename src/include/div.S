@@ -6,9 +6,9 @@
  * r3: counter
  * * * * * * * * * * * */
 
-.global div
-.section .text
+    .global div
 
+    .section .text
 div:
     push    {lr}
 div_l:
@@ -19,6 +19,6 @@ div_l:
     b       div_l
     
 div_lex:
-    // ret value is already in r3
+    mov     r0, r3
     pop     {pc}
 

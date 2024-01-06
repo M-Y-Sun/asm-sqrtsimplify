@@ -11,32 +11,34 @@
  * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-.include "src/include/stdio.S"
-.include "src/include/atoi.S"
-.include "src/include/itoa.S"
-.include "src/include/sqrt.S"
-.include "src/include/div.S"
+    .include "src/include/stdio.S"
+    .include "src/include/atoi.S"
+    .include "src/include/itoa.S"
+    .include "src/include/sqrt.S"
+    .include "src/include/div.S"
 
-.global _start
-.section .text
+    .global _start
 
+    .section .text
 _start:
     stdout  intromsg        // print message
     stdin   innum, #8
 
     ldr     r0, =innum
-    bl      atoi            // returns in r3
-    mov     r4, r3
+    bl      atoi            // returns in r0
+    mov     r4, r0
     
     mov     r5, r4
     mov     r6, #1
 
     mov     r0, r4
     bl      sqrt
-    mov     r3, r7
+    mov     r7, r0
+    add     r7, #1          // incr so it can be decr at the beginning
 lcompute:
+    sub     r7, r7, #1      // decr r7 at the beginning for simplicity
     cmp     r7, #1
-    blt     lcomputeex
+    ble     lcomputeex
     cmp     r5, #1
     beq     lcomputeex
     
@@ -45,7 +47,7 @@ lcompute:
     mov     r0, r5
     mov     r1, r8
     bl      div             // r5 / r8
-    mov     r3, r9
+    mov     r0, r9
     mul     r10, r9, r8
     sub     r10, r5, r10
     cmp     r10, #0
@@ -91,7 +93,7 @@ lcomputeex:
     mov     r1, #'\n'
     swi     0
 
-    b       progex
+    b       prmex
 noout:
     mov     r7, #0x4
     mov     r0, #1
@@ -107,7 +109,7 @@ noout:
     mov     r1, #'\n'
     swi     0
     
-    b       progex
+    b       prmex
 noin:
     mov     r0, r6
     ldr     r1, =innum
@@ -118,15 +120,15 @@ noin:
     mov     r1, #'\n'
     mov     r2, #1
     swi     0
-progex:
+prmex:
     mov     r7, #0x1
     mov     r0, #0
     swi     0
 
-.section .data
+    .section .data
 innum:      .fill   9   // 8 digits and newline
 
-.section .rodata
+    .section .rodata
 intromsg:   .asciz  "sqrt of what number\n\t> "
 
 errmsg:     .asciz  "invalid input: nonnegative integer expected\n"
@@ -138,3 +140,4 @@ eq1msg:     .asciz  "\u221a1 = 1\n"
 sqrtsymbol: .asciz  "\u221a"
 
 eqsign:     .asciz  " = "
+
