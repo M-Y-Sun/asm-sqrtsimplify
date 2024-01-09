@@ -10,6 +10,8 @@
 
     .section .text
 div:
+    mov     r2, #0
+    mov     r3, #0
     push    {lr}
 div_l:
     add     r2, r2, r1

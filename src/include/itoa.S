@@ -42,9 +42,6 @@ itoa_write:
     mov     r8, #0          // reset loop counter 
     b       itoa_finddigit 
 itoa_ex: 
-    mov     r8, #'\n'       // load line ending for output str 
-    strb    r8, [r4]        // store to output. no need to increment  
-    
     mov     r1, r9          // put address back in r1
 
     pop     {r4-r9, pc}     // restore registers 
