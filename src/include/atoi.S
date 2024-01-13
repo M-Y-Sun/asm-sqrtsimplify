@@ -18,9 +18,9 @@
  * END DO
  * * * * * * * * * * * * * */
 
-    .global atoi
+.global atoi
 
-    .section .text
+.section .text
 atoi:
     push    {lr}                // save return address
 

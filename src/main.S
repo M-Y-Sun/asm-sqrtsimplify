@@ -11,15 +11,15 @@
  * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-    .include "src/include/stdio.S"
-    .include "src/include/atoi.S"
-    .include "src/include/itoa.S"
-    .include "src/include/sqrt.S"
-    .include "src/include/div.S"
+.include "src/include/stdio.S"
+.include "src/include/atoi.S"
+.include "src/include/itoa.S"
+.include "src/include/sqrt.S"
+.include "src/include/div.S"
 
-    .global _start
+.global _start
 
-    .section .text
+.section .text
 _start:
     stdout  intromsg        // print message
     stdin   innum, #8
@@ -112,12 +112,12 @@ prmex:
     mov     r0, #0
     swi     0
 
-    .section .data
+.section .data
 innum:      .fill   9   // 8 digits and newline
 inbuf:      .fill   8   // number inside root
 outbuf:     .fill   8   // coefficient of root
 
-    .section .rodata
+.section .rodata
 intromsg:   .asciz  "sqrt of what number\n\t> "
 errmsg:     .asciz  "invalid input: nonnegative integer expected\n"
 eq0msg:     .asciz  "= 0"

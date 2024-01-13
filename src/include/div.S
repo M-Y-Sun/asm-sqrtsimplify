@@ -6,9 +6,9 @@
  * r3: counter
  * * * * * * * * * * * */
 
-    .global div
+.global div
 
-    .section .text
+.section .text
 div:
     mov     r2, #0
     mov     r3, #0
