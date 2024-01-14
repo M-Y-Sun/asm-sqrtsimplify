@@ -5,9 +5,6 @@
  * r2: input string pointer
  * r3: counter
  *
- * RETURN:
- * push r0 on the stack
- *
  * ALGORITHM (PDL):
  * numstr = "58666"
  * int num = 0;

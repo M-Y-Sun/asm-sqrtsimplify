@@ -6,9 +6,9 @@
  * r3: number to return
  * * * * * * * * * * * * * * */
 
-    .global sqrt
+.global sqrt
 
-    .section .text
+.section .text
 sqrt:
     push    {lr}
     

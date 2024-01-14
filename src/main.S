@@ -10,7 +10,6 @@
  * r10: value of modulus
  * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 .include "src/include/stdio.S"
 .include "src/include/atoi.S"
 .include "src/include/itoa.S"
@@ -28,6 +27,7 @@ _start:
     bl      atoi            // returns in r0
     mov     r4, r0
 
+    // check for invalid input
     cmp     r4, #1
     beq     eq1
     cmp     r4, #0
@@ -36,7 +36,6 @@ _start:
     
     mov     r5, r4
     mov     r6, #1
-
     mov     r0, r4
     bl      sqrt
     mov     r7, r0
@@ -74,7 +73,7 @@ lcomputeex:
     bl      itoa
     stdout  outbuf
 
-    stdout  sqrtmsg
+    stdout  sqrtchar
 
     mov     r0, r5
     ldr     r1, =inbuf
@@ -83,7 +82,7 @@ lcomputeex:
 
     b       prmex
 noout:
-    stdout  sqrtmsg
+    stdout  sqrtchar
     mov     r0, r5
     ldr     r1, =inbuf
     bl      itoa
@@ -100,6 +99,8 @@ err:
     mov     r7, #0x1
     mov     r0, #1
     swi     0
+
+// program should not reach this point without a branch
 eq1:
     stdout  eq1msg
     b       prmex
@@ -122,7 +123,7 @@ intromsg:   .asciz  "sqrt of what number\n\t> "
 errmsg:     .asciz  "invalid input: nonnegative integer expected\n"
 eq0msg:     .asciz  "= 0"
 eq1msg:     .asciz  "= 1"
-sqrtmsg:    .asciz  "sqrt"
+sqrtchar:    .asciz  "sqrt"
 eqsign:     .asciz  "= "
 newline:    .asciz  "\n"
 
